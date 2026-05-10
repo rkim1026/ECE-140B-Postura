@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Postura – Track your posture</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../static/style.css" />
+</head>
+<body>
+
+  <!-- Branding -->
+  <div class="brand">
+    <div class="app-icon">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="4,18 10,18 14,10 18,26 22,14 26,18 32,18"
+          stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="brand-name">Postura</div>
+    <div class="brand-tagline">Track your posture. Improve your focus.</div>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+    <div class="tabs">
+      <div class="tab active" data-tab="signin">Sign In</div>
+      <div class="tab" data-tab="create">Create Account</div>
+    </div>
+
+    <div class="panels">
+      <!-- Sign In -->
+      <div class="panel active" id="panel-signin">
+        <div class="field">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <polyline points="2,4 12,13 22,4"/>
+              </svg>
+            </span>
+            <input type="email" placeholder="you@university.edu" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <input type="password" id="pw-signin" value="········" autocomplete="current-password" />
+            <button class="toggle-pw" onclick="togglePw('pw-signin', this)" aria-label="Toggle password">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="forgot-row"><a href="#">Forgot password?</a></div>
+
+        <button class="btn">
+          Sign In
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Create Account -->
+      <div class="panel" id="panel-create">
+        <div class="field">
+          <label>Full Name</label>
+          <div class="input-wrap">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </span>
+            <input type="text" placeholder="Alex Johnson" autocomplete="name" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <polyline points="2,4 12,13 22,4"/>
+              </svg>
+            </span>
+            <input type="email" placeholder="you@university.edu" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <input type="password" id="pw-create" placeholder="Min. 8 characters" autocomplete="new-password" />
+            <button class="toggle-pw" onclick="togglePw('pw-create', this)" aria-label="Toggle password">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn">
+          Create Account
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+
+        <p class="terms">
+          By creating an account you agree to our <a href="#">Terms</a> and<br>
+          <a href="#">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature pills -->
+  <div class="features">
+    <div class="feature">
+      <span class="emoji">📡</span>
+      <span>Real-time Tracking</span>
+    </div>
+    <div class="feature">
+      <span class="emoji">🔔</span>
+      <span>Smart Alerts</span>
+    </div>
+    <div class="feature">
+      <span class="emoji">📊</span>
+      <span>Progress Stats</span>
+    </div>
+  </div>
+
+  <script src="../static/script.js"></script>
+</body>
+</html>

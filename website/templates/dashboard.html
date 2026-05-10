@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Postura – Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../static/style.css" />
+  <link rel="stylesheet" href="../static/dashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-body">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="app-icon small">
+        <svg viewBox="0 0 36 36" fill="none">
+          <polyline points="4,18 10,18 14,10 18,26 22,14 26,18 32,18"
+            stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="sidebar-brand">Postura</span>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="avatar">AT</div>
+      <div class="user-info">
+        <div class="user-name">Aden Tan</div>
+        <div class="user-email">adt006@ucsd.edu</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        Dashboard
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        Work Session
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        Summary
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Profile
+      </a>
+    </nav>
+
+    <div class="sidebar-sensor">
+      <div class="sensor-dot"></div>
+      <div>
+        <div class="sensor-name">ESP32 Sensor</div>
+        <div class="sensor-status">Connected</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="greeting">
+        <div class="greeting-sub">Good evening!</div>
+        <div class="greeting-name">Aden 👋</div>
+      </div>
+      <div class="topbar-right">
+        <div class="session-badge">
+          <span class="session-dot"></span> No Session
+        </div>
+        <div class="date-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          May 2
+        </div>
+      </div>
+    </header>
+
+    <!-- Stat cards -->
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-dot green"></span>
+          <span class="stat-pct green">77%</span>
+        </div>
+        <div class="stat-value">2h 14m</div>
+        <div class="stat-label">Good Posture</div>
+        <div class="stat-bar"><div class="stat-bar-fill green" style="width:77%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-dot yellow"></span>
+          <span class="stat-pct yellow">18%</span>
+        </div>
+        <div class="stat-value">32m</div>
+        <div class="stat-label">Leaning</div>
+        <div class="stat-bar"><div class="stat-bar-fill yellow" style="width:18%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-dot red"></span>
+          <span class="stat-pct red">5%</span>
+        </div>
+        <div class="stat-value">8m</div>
+        <div class="stat-label">Severe Slouch</div>
+        <div class="stat-bar"><div class="stat-bar-fill red" style="width:5%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9aa3b8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="stat-value">2h 54m</div>
+        <div class="stat-label">Total Session</div>
+      </div>
+    </div>
+
+    <!-- Middle row -->
+    <div class="mid-row">
+
+      <!-- Today's Score -->
+      <div class="score-card card-box">
+        <div class="card-header">
+          <span class="card-title">Today's Score</span>
+          <span class="badge-great">Great</span>
+        </div>
+        <div class="donut-wrap">
+          <canvas id="donutChart" width="160" height="160"></canvas>
+          <div class="donut-label">
+            <div class="donut-pct">77%</div>
+            <div class="donut-sub">Good Posture</div>
+          </div>
+        </div>
+        <div class="legend">
+          <div class="legend-row"><span class="leg-dot green"></span> Good Posture <span class="leg-val">77%</span></div>
+          <div class="legend-row"><span class="leg-dot yellow"></span> Leaning <span class="leg-val">18%</span></div>
+          <div class="legend-row"><span class="leg-dot red"></span> Severe <span class="leg-val">5%</span></div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-card card-box">
+        <div class="card-header">
+          <span class="card-title">Posture Quality Over Time</span>
+          <div class="chart-tabs">
+            <button class="chart-tab active">Today</button>
+            <button class="chart-tab">Week</button>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row -->
+    <div class="bottom-row">
+
+      <!-- Alerts -->
+      <div class="alerts-card card-box">
+        <div class="card-header">
+          <span class="card-title">Recent Alerts <span class="badge-count">5 today</span></span>
+          <a href="#" class="view-all">View all ›</a>
+        </div>
+        <div class="alerts-list">
+          <div class="alert-item red-bg">
+            <svg class="alert-icon red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span class="alert-msg">Severe slouching detected</span>
+            <span class="alert-time">11:34 AM</span>
+          </div>
+          <div class="alert-item yellow-bg">
+            <svg class="alert-icon yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span class="alert-msg">Leaning forward for 5+ minutes</span>
+            <span class="alert-time">11:12 AM</span>
+          </div>
+          <div class="alert-item green-bg">
+            <svg class="alert-icon green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="alert-msg">30-min good posture streak!</span>
+            <span class="alert-time">10:48 AM</span>
+          </div>
+          <div class="alert-item red-bg">
+            <svg class="alert-icon red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span class="alert-msg">Severe slouching detected</span>
+            <span class="alert-time">10:02 AM</span>
+          </div>
+          <div class="alert-item gray-bg">
+            <svg class="alert-icon blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,18 10,18 14,10 18,26 22,14 26,18 32,18"/><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span class="alert-msg">Session started</span>
+            <span class="alert-time">9:00 AM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div class="right-col">
+        <!-- Start Session -->
+        <div class="start-session-card">
+          <div class="start-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <div class="start-title">Start a Session</div>
+          <div class="start-sub">Begin tracking your posture in real-time.</div>
+          <button class="start-btn">Start Now ›</button>
+        </div>
+
+        <!-- Weekly Streak -->
+        <div class="streak-card card-box">
+          <div class="streak-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span class="card-title">Weekly Streak</span>
+          </div>
+          <div class="streak-days">
+            <div class="streak-day yellow-day"><span>M</span></div>
+            <div class="streak-day green-day"><span>T</span></div>
+            <div class="streak-day green-day"><span>W</span></div>
+            <div class="streak-day yellow-day"><span>T</span></div>
+            <div class="streak-day green-day"><span>F</span></div>
+            <div class="streak-day green-day"><span>S</span></div>
+            <div class="streak-day blue-day"><span>T</span></div>
+          </div>
+          <div class="streak-label">🔥 <strong>5-day streak!</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../static/script.js"></script>
+  <script src="../static/dashboard.js"></script>
+</body>
+</html>
