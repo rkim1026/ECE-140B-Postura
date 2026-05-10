@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posture Monitor</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <h1>Posture Monitor</h1>
+  <p class="sub">
+    <span class="dot dot-wait" id="dot"></span>
+    <span id="status-text">Connecting...</span>
+  </p>
+
+  <div class="layout">
+
+    <!-- ── Live Feed ───────────────────────── -->
+    <div class="card">
+      <h2>Live Feed</h2>
+      <div class="badge neutral" id="posture-badge">—</div>
+      <div class="grid8" id="live-grid"></div>
+      <div class="stats">
+        <div class="stat"><span>Vert Gradient</span><b id="vert">—</b></div>
+        <div class="stat"><span>Horiz Gradient</span><b id="horiz">—</b></div>
+        <div class="stat"><span>Mean Dev</span><b id="mean">—</b></div>
+        <div class="stat"><span>Missing</span><b id="missing">—</b></div>
+      </div>
+      <div class="legend">
+        <div class="leg"><div class="leg-sq" style="background:#1e3a8a"></div>Farther</div>
+        <div class="leg"><div class="leg-sq" style="background:#065f46"></div>Normal</div>
+        <div class="leg"><div class="leg-sq" style="background:#7f1d1d"></div>Closer</div>
+        <div class="leg"><div class="leg-sq" style="background:#374151"></div>Invalid</div>
+      </div>
+    </div>
+
+    <!-- ── Calibration ─────────────────────── -->
+    <div class="card">
+      <h2>Calibration Baseline</h2>
+      <button class="btn" id="cal-btn" onclick="startCalibration()">
+        Start Calibration
+      </button>
+      <p class="cal-hint">Sit upright and still. Sensor collects 10 seconds of baseline.</p>
+      <div class="grid8" id="cal-grid"></div>
+      <div class="stats" id="cal-stats"></div>
+    </div>
+
+    <!-- ── Data Collection ─────────────────── -->
+    <div class="card card-wide">
+      <h2>Data Collection
+        <span class="csv-counter">
+          <span id="csv-count">0</span> rows saved
+          <span class="csv-file">→ posture_data.csv</span>
+        </span>
+      </h2>
+      <p class="cal-hint">
+        Hold each posture for 1–2 seconds, then press the matching label to save that frame.
+      </p>
+      <div class="collect-grid">
+        <button class="btn btn-collect btn-good"    onclick="collect('GOOD')">
+          ✓ Good Posture
+        </button>
+        <button class="btn btn-collect btn-mild"    onclick="collect('MILD_SLOUCH')">
+          Mild Slouch
+        </button>
+        <button class="btn btn-collect btn-severe"  onclick="collect('SEVERE_SLOUCH')">
+          Severe Slouch
+        </button>
+        <button class="btn btn-collect btn-mild"    onclick="collect('LEANING_BACK')">
+          Leaning Back
+        </button>
+        <button class="btn btn-collect btn-mild"    onclick="collect('LATERAL_LEAN')">
+          Lateral Lean
+        </button>
+        <button class="btn btn-collect btn-severe"  onclick="collect('OVER_SHOULDER')">
+          Over Shoulder
+        </button>
+      </div>
+      <div id="collect-status" class="collect-status"></div>
+
+      <!-- Per-label counters -->
+      <div class="label-counts" id="label-counts"></div>
+    </div>
+
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

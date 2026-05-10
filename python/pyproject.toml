@@ -1,0 +1,14 @@
+[project]
+name = "collection-client"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "paho-mqtt",
+    "requests",
+    "python-dotenv",
+    "matplotlib",
+    "fastapi",
+    "uvicorn[standard]",
+    "jinja2",
+    "numpy",
+]

@@ -1,0 +1,202 @@
+:root {
+  --good:    #22c55e;
+  --mild:    #f59e0b;
+  --severe:  #ef4444;
+  --bg:      #0f172a;
+  --surface: #1e293b;
+  --border:  #334155;
+  --text:    #e2e8f0;
+  --muted:   #94a3b8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding: 24px;
+  min-height: 100vh;
+}
+
+h1   { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+.sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 24px;
+       display: flex; align-items: center; gap: 6px; }
+
+/* ── Layout ──────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 1000px;
+}
+.card-wide { grid-column: 1 / -1; }
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+  .card-wide { grid-column: 1; }
+}
+
+/* ── Card ────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.card h2 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── CSV counter badge ───────────────────────────────── */
+.csv-counter {
+  background: #0f172a;
+  border-radius: 99px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--good);
+  letter-spacing: 0;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.csv-file { color: var(--muted); font-weight: 400; }
+
+/* ── 8x8 grid ────────────────────────────────────────── */
+.grid8 {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 3px;
+}
+.zone {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.48rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  transition: background 0.3s ease;
+}
+
+/* ── Posture badge ───────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+.badge.good    { background: #14532d; color: var(--good);   }
+.badge.mild    { background: #451a03; color: var(--mild);   }
+.badge.severe  { background: #450a0a; color: var(--severe); }
+.badge.neutral { background: #1e293b; color: var(--muted);  }
+
+/* ── Stats ───────────────────────────────────────────── */
+.stats { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.stat {
+  background: #0f172a;
+  border-radius: 8px;
+  padding: 7px 11px;
+  font-size: 0.8rem;
+}
+.stat span { display: block; color: var(--muted); font-size: 0.68rem; margin-bottom: 2px; }
+
+/* ── Buttons ─────────────────────────────────────────── */
+.btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s;
+}
+.btn:hover    { background: #2563eb; }
+.btn:active   { transform: scale(0.97); }
+.btn:disabled { background: #334155; color: var(--muted); cursor: not-allowed; }
+
+/* Collection buttons */
+.collect-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+@media (max-width: 600px) { .collect-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.btn-collect {
+  padding: 12px 8px;
+  font-size: 0.82rem;
+  border-radius: 10px;
+}
+.btn-good   { background: #166534; }
+.btn-good:hover   { background: #14532d; }
+.btn-mild   { background: #92400e; }
+.btn-mild:hover   { background: #78350f; }
+.btn-severe { background: #7f1d1d; }
+.btn-severe:hover { background: #6b0f0f; }
+
+/* ── Collection status flash ─────────────────────────── */
+.collect-status {
+  font-size: 0.82rem;
+  min-height: 1.4em;
+  margin-bottom: 12px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.collect-status.ok  { color: var(--good);   }
+.collect-status.err { color: var(--severe); }
+
+/* ── Per-label counter pills ─────────────────────────── */
+.label-counts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.lc-pill {
+  background: #0f172a;
+  border-radius: 99px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.lc-pill b { color: var(--text); margin-left: 4px; }
+
+/* ── Status dot ──────────────────────────────────────── */
+.dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-live { background: var(--good);  box-shadow: 0 0 6px var(--good); }
+.dot-cal  { background: var(--mild);  }
+.dot-wait { background: var(--muted); }
+
+/* ── Misc ────────────────────────────────────────────── */
+.cal-hint {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 8px 0 14px;
+  max-width: 52ch;
+}
+.legend { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.leg    { font-size: 0.7rem; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.leg-sq { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
