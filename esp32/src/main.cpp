@@ -218,7 +218,7 @@ void setup() {
     if (wpaWifi == true) {
         wifi.connectToWPAEnterprise("eduroam", "***", "***");
     } else {
-        wifi.connectToWiFi(wifiSsid, nonEnterpriseWifiPassword);
+        wifi.connectToWiFi("***", "***");
     }
 
     // MQTT — same pattern as TA5
