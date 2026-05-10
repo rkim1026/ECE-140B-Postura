@@ -108,7 +108,7 @@ function collect(label) {
         statusEl.textContent = `✗ Error: ${d.error}`;
       }
       // Clear status after 3s
-      setTimeout(() => { statusEl.textContent = ""; statusEl.className = "collect-status"; }, 3000);
+      setTimeout(() => { statusEl.textContent = ""; statusEl.className = "collect-status"; }, 4000);
     })
     .catch(err => {
       statusEl.className   = "collect-status err";
