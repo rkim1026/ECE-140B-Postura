@@ -90,7 +90,7 @@ function collect(label) {
   statusEl.className   = "collect-status";
   statusEl.textContent = `Saving ${label}...`;
 
-  fetch("/api/collect", {
+  fetch("/api/save-posture", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ label })

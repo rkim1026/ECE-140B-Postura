@@ -215,10 +215,10 @@ void setup() {
     delay(2000);
 
     // WiFi — same pattern as TA5
-    if (wpaWifi == true) {
-        wifi.connectToWPAEnterprise("eduroam", "***", "***");
+    if (wpaWifi == false) {
+        wifi.connectToWPAEnterprise(WIFI_SSID, UCSD_USERNAME, UCSD_PASSWORD);
     } else {
-        wifi.connectToWiFi("***", "***");
+        wifi.connectToWiFi(WIFI_SSID, NON_ENTERPRISE_WIFI_PASSWORD);
     }
 
     // MQTT — same pattern as TA5

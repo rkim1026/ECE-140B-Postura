@@ -180,7 +180,9 @@ async def trigger_calibrate():
     print("[API] Sent CALIBRATE to ESP32")
     return {"success": True, "message": "Calibration command sent"}
 
-@app.post("/api/collect")
+
+#changed endpoint from collect to save-posture to collect data with adblocker
+@app.post("/api/save-posture")
 async def collect_frame(request: Request):
     # ── THE ONLY CHANGED ENDPOINT ──────────────────────────
     # Use last_good_frame instead of latest_frame.
