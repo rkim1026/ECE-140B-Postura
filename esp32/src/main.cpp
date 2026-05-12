@@ -36,8 +36,8 @@ VL53L5CX_ResultsData results;
 #define MAX_VALID_MM  1200
 #define MIN_VALID_MM  20
 #define CAL_DURATION  10000
-#define SLANT_MILD    25
-#define SLANT_SEVERE  60
+#define SLANT_MILD    12
+#define SLANT_SEVERE  20
 #define MISSING_MAX   16
 
 // ── State ──────────────────────────────────────────────────
@@ -173,10 +173,12 @@ void assessAndPublish() {
     const char* posture;
     if      (missingCount > MISSING_MAX)    posture = "OVER_SHOULDER";
     else if (offBodyCount > 12)             posture = "SENSOR_MISPLACED";
-    else if (vertGrad > SLANT_SEVERE)       posture = "SEVERE_SLOUCH";
-    else if (vertGrad > SLANT_MILD)         posture = "MILD_SLOUCH";
-    else if (vertGrad < -SLANT_SEVERE)      posture = "SEVERELY_RECLINED";
-    else if (vertGrad < -SLANT_MILD)        posture = "LEANING_BACK";
+    else if (vertGrad < -SLANT_SEVERE)       posture = "SEVERE_SLOUCH";
+    else if (vertGrad < -SLANT_MILD)         posture = "MILD_SLOUCH";
+    //else if (vertGrad > SLANT_MILD)         posture = "LEANING_BACK";
+    else if (vertGrad > SLANT_SEVERE)      posture = "SEVERELY_RECLINED";
+    else if (vertGrad > SLANT_MILD)        posture = "LEANING_BACK";
+    //else if (vertGrad < -SLANT_MILD)        posture = "MILD_SLOUCH";
     else if (abs(horizGrad) > SLANT_SEVERE) posture = "SEVERE_LATERAL";
     else if (abs(horizGrad) > SLANT_MILD)   posture = "LATERAL_LEAN";
     else                                    posture = "GOOD";
