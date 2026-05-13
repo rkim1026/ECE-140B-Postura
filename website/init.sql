@@ -1,0 +1,41 @@
+-- 1. DROP EVERYTHING (To ensure a clean slate)
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS readings;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS devices;
+
+-- 2. CREATE DEVICES
+CREATE TABLE devices (
+    mac_address VARCHAR(18) PRIMARY KEY,
+    last_seen TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 3. CREATE USERS
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 4. CREATE READINGS (FK to devices)
+CREATE TABLE readings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mac_address VARCHAR(18),
+    thermistor_temp FLOAT,
+    prediction VARCHAR(20),
+    confidence FLOAT,
+    pixels JSON,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (mac_address) REFERENCES devices(mac_address) ON DELETE CASCADE
+);
+
+-- 5. CREATE SESSIONS (FK to users)
+CREATE TABLE sessions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    session_token VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
