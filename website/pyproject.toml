@@ -13,4 +13,5 @@ dependencies = [
     "numpy",
     "mysql-connector-python",
     "bcrypt>=5.0.0",
+    "pandas>=2.3.3",
 ]
