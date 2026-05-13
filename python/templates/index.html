@@ -1,85 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Posture Monitor</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css?v=2">
 </head>
 <body>
 
-  <h1>Posture Monitor</h1>
-  <p class="sub">
-    <span class="dot dot-wait" id="dot"></span>
-    <span id="status-text">Connecting...</span>
-  </p>
+  <header>
+    <div class="header-left">
+      <h1>Posture Monitor</h1>
+      <p class="sub">
+        <span class="dot dot-wait" id="dot"></span>
+        <span id="status-text">Connecting...</span>
+      </p>
+    </div>
+    <button class="btn btn-sm" id="cal-btn" onclick="startCalibration()">
+      Recalibrate
+    </button>
+  </header>
 
   <div class="layout">
 
-    <!-- ── Live Feed ───────────────────────── -->
+    <!-- Live Feed -->
     <div class="card">
       <h2>Live Feed</h2>
       <div class="badge neutral" id="posture-badge">—</div>
+
       <div class="grid8" id="live-grid"></div>
-      <div class="stats">
-        <div class="stat"><span>Vert Gradient</span><b id="vert">—</b></div>
-        <div class="stat"><span>Horiz Gradient</span><b id="horiz">—</b></div>
-        <div class="stat"><span>Mean Dev</span><b id="mean">—</b></div>
-        <div class="stat"><span>Missing</span><b id="missing">—</b></div>
-      </div>
+
       <div class="legend">
-        <div class="leg"><div class="leg-sq" style="background:#1e3a8a"></div>Farther</div>
-        <div class="leg"><div class="leg-sq" style="background:#065f46"></div>Normal</div>
-        <div class="leg"><div class="leg-sq" style="background:#7f1d1d"></div>Closer</div>
-        <div class="leg"><div class="leg-sq" style="background:#374151"></div>Invalid</div>
+        <div class="leg"><div class="leg-sq" style="background:#1e3a8a"></div>Far</div>
+        <div class="leg"><div class="leg-sq" style="background:#065f46"></div>Neutral</div>
+        <div class="leg"><div class="leg-sq" style="background:#7f1d1d"></div>Close</div>
+        <div class="leg"><div class="leg-sq" style="background:#1e293b"></div>Invalid</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="gradient-panel">
+
+        <div class="gp-section-label">Vertical Gradient</div>
+        <div class="gradient-panel-row">
+          <span class="gp-row-label">Cal</span>
+          <b class="gp-val" id="gp-cal-vert">—</b>
+          <span class="gp-row-label">Live</span>
+          <b class="gp-val" id="gp-live-vert">—</b>
+          <span class="gp-row-label">Δ</span>
+          <b class="gp-val gp-delta" id="gp-d-vert">—</b>
+        </div>
+        <div class="gp-bar-row">
+          <div class="gp-bar-track">
+            <div class="gp-marker-cal" id="gp-marker-cal-vert"></div>
+            <div class="gp-bar-fill" id="gp-bar-vert"></div>
+          </div>
+          <div class="gp-bar-labels">
+            <span>Top closer</span>
+            <span>Neutral</span>
+            <span>Bottom closer</span>
+          </div>
+        </div>
+
+        <div class="gp-section-label" style="margin-top:10px">Mean Deviation</div>
+        <div class="gradient-panel-row">
+          <span class="gp-row-label">Cal</span>
+          <b class="gp-val" id="gp-cal-mean">0 mm</b>
+          <span class="gp-row-label">Live</span>
+          <b class="gp-val" id="gp-live-mean">—</b>
+          <span class="gp-row-label">Δ</span>
+          <b class="gp-val gp-delta" id="gp-d-mean">—</b>
+        </div>
+        <div class="gp-bar-row">
+          <div class="gp-bar-track">
+            <div class="gp-bar-fill gp-bar-fill-mean" id="gp-bar-mean"></div>
+          </div>
+          <div class="gp-bar-labels">
+            <span>Far back</span>
+            <span>Calibrated</span>
+            <span>Close / slouch</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span>Live Vert</span><b id="vert">—</b></div>
+        <div class="stat"><span>Mean Dev</span><b id="mean">—</b></div>
       </div>
     </div>
 
-    <!-- ── Calibration ─────────────────────── -->
+    <!-- Calibration Baseline -->
     <div class="card">
       <h2>Calibration Baseline</h2>
-      <button class="btn" id="cal-btn" onclick="startCalibration()">
-        Start Calibration
-      </button>
-      <p class="cal-hint">Sit upright and still. Sensor collects 10 seconds of baseline.</p>
+      <p class="cal-hint">Sit upright and still. Sensor collects 5 seconds of baseline — the natural sensor gradient is captured here.</p>
+
       <div class="grid8" id="cal-grid"></div>
-      <div class="stats" id="cal-stats"></div>
+
+      <div class="stats" id="cal-stats">
+        <div class="stat"><span>Frames</span><b id="cal-frames">—</b></div>
+        <div class="stat"><span>Valid Zones</span><b id="cal-valid-zones">—</b></div>
+        <div class="stat"><span>Min</span><b id="cal-min">—</b></div>
+        <div class="stat"><span>Max</span><b id="cal-max">—</b></div>
+        <div class="stat"><span>Mean</span><b id="cal-mean">—</b></div>
+      </div>
+
+      <div class="cal-gradient-summary" id="cal-gradient-summary" style="display:none">
+        <div class="cgs-row">
+          <span class="cgs-label">Natural Vert Gradient</span>
+          <b class="cgs-val" id="cgs-vert">—</b>
+        </div>
+        <div class="cgs-bar-wrap">
+          <div class="cgs-bar-track">
+            <div class="cgs-bar-fill" id="cgs-bar-vert"></div>
+          </div>
+          <div class="cgs-bar-labels">
+            <span>Top closer</span>
+            <span>Neutral</span>
+            <span>Bottom closer</span>
+          </div>
+        </div>
+        <div class="cgs-row" style="margin-top:10px">
+          <span class="cgs-label">Mean Baseline Dist</span>
+          <b class="cgs-val" id="cgs-mean-dist">—</b>
+        </div>
+        <div class="cgs-row">
+          <span class="cgs-label">Lean-back Threshold</span>
+          <b class="cgs-val cgs-thresh" id="cgs-leanback-thresh">—</b>
+        </div>
+      </div>
     </div>
 
-    <!-- ── Data Collection ─────────────────── -->
+    <!-- Data Collection -->
     <div class="card card-wide">
       <h2>Data Collection
         <span class="csv-counter">
-          <span id="csv-count">0</span> rows saved
+          <span id="csv-count">0</span> rows
           <span class="csv-file">→ posture_data.csv</span>
         </span>
       </h2>
-      <p class="cal-hint">
-        Hold each posture for 1–2 seconds, then press the matching label to save that frame.
-      </p>
-      <div class="collect-grid">
-        <button class="btn btn-collect btn-good"    onclick="collect('GOOD')">
-          ✓ Good Posture
-        </button>
-        <button class="btn btn-collect btn-mild"    onclick="collect('MILD_SLOUCH')">
-          Mild Slouch
-        </button>
-        <button class="btn btn-collect btn-severe"  onclick="collect('SEVERE_SLOUCH')">
-          Severe Slouch
-        </button>
-        <button class="btn btn-collect btn-mild"    onclick="collect('LEANING_BACK')">
-          Leaning Back
-        </button>
-        <button class="btn btn-collect btn-mild"    onclick="collect('LATERAL_LEAN')">
-          Lateral Lean
-        </button>
-        <button class="btn btn-collect btn-severe"  onclick="collect('OVER_SHOULDER')">
-          Over Shoulder
-        </button>
-      </div>
-      <div id="collect-status" class="collect-status"></div>
+      <p class="cal-hint">Hold each posture for 1–2 seconds, then press the matching label.</p>
 
-      <!-- Per-label counters -->
+      <div class="collect-grid">
+        <button class="btn btn-collect btn-good"     onclick="collect('GOOD')">✓ Good Posture</button>
+        <button class="btn btn-collect btn-mild"     onclick="collect('MILD_SLOUCH')">Mild Slouch</button>
+        <button class="btn btn-collect btn-severe"   onclick="collect('SEVERE_SLOUCH')">Severe Slouch</button>
+        <button class="btn btn-collect btn-leanback" onclick="collect('LEANING_BACK')">Leaning Back</button>
+      </div>
+
+      <div id="collect-status" class="collect-status"></div>
       <div class="label-counts" id="label-counts"></div>
     </div>
 
