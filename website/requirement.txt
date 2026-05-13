@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+paho-mqtt
+python-dotenv
+jinja2
