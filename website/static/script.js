@@ -1,20 +1,74 @@
-// Tab switching
+// --- Tab Switching Logic ---
 document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    const target = tab.dataset.tab;
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('panel-' + target).classList.add('active');
-  });
+    tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        // Remove active class from all tabs and panels
+        document.querySelectorAll('.tab, .panel').forEach(el => el.classList.remove('active'));
+        // Add active class to clicked tab and corresponding panel
+        tab.classList.add('active');
+        document.getElementById('panel-' + target).classList.add('active');
+    });
 });
 
-// Password toggle
+// --- Password Visibility Toggle ---
 function togglePw(id, btn) {
-  const input = document.getElementById(id);
-  const isText = input.type === 'text';
-  input.type = isText ? 'password' : 'text';
-  btn.querySelector('svg').innerHTML = isText
-    ? `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`
-    : `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+    const input = document.getElementById(id);
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+
+    // Update the eye icon (optional: you can swap the SVG path here)
+    btn.style.opacity = isPassword ? '1' : '0.5';
 }
+
+// --- Registration Logic ---
+document.getElementById('btn-register').addEventListener('click', async () => {
+    const fullName = document.getElementById('signup-fullname').value;
+    const username = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+
+    if (!fullName || !username || !password) {
+        alert("All fields are required.");
+        return;
+    }
+
+    const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ full_name: fullName, username: username, password: password })
+    });
+
+    if (response.ok) {
+        alert("Account successfully created! Redirecting to Sign In...");
+        // Automatically switch back to the Sign In tab
+        document.getElementById('tab-signin').click();
+    } else {
+        const data = await response.json();
+        alert(data.detail || "Registration failed. Try again.");
+    }
+});
+
+// --- Login Logic ---
+document.getElementById('btn-login').addEventListener('click', async () => {
+    const username = document.getElementById('signin-email').value;
+    const password = document.getElementById('signin-password').value;
+
+    if (!username || !password) {
+        alert("Please enter both email and password.");
+        return;
+    }
+
+    const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: username, password: password })
+    });
+
+    if (response.ok) {
+        // Success: the cookie is set by the backend, move to dashboard
+        window.location.href = "/dashboard";
+    } else {
+        const data = await response.json();
+        // Display the specific error from the backend (e.g., "Incorrect credentials")
+        alert(data.detail || "Login failed.");
+    }
+});
